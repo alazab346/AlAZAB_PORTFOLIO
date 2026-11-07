@@ -169,7 +169,7 @@ export default function Hero() {
                 </button>
               </Link>
               <a 
-                href={portfolioData.cvUrl ? `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${portfolioData.cvUrl}` : '#'} 
+                href={portfolioData.cvUrl || '#'} 
                 download 
                 id="hero-download-cv" 
                 className="btn-outline"

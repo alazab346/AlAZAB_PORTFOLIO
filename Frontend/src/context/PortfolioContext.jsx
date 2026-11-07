@@ -18,7 +18,7 @@ const FALLBACK_DATA = {
   ],
   heroDescription:
     'I am a Computer Science undergraduate with a focus on software engineering and full-stack development. I build modern, scalable, user-focused web and mobile applications, with hands-on experience developing business management systems, corporate websites, and cross-platform productivity applications.',
-  cvUrl: '/Mohammed_Al-Azab_FlowCV_Resume_2026-11-06 (1).pdf',
+  cvUrl: '/Mohammed_Al-Azab_Resume.pdf',
 
   // About
   about: {
