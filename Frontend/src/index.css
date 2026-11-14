@@ -191,21 +191,38 @@
   background-size: 40px 40px;
 }
 
-/* Skill bar animation */
-.skill-progress {
+/* Wave-flow technology cards */
+.tech-wave { --wave-scale: 0.5; }
+@media (min-width: 640px) { .tech-wave { --wave-scale: 1; } }
+
+.tech-wave-item {
   position: relative;
-  overflow: hidden;
+  top: calc(var(--wave-y, 0px) * var(--wave-scale, 1));
 }
 
-.skill-progress::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  height: 100%;
-  width: 60px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-  animation: shimmer 2s infinite;
+.tech-wave-float {
+  animation: tech-wave-float 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+.tech-card {
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tech-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 212, 255, 0.45);
+  box-shadow: 0 8px 24px rgba(0, 212, 255, 0.14);
+}
+
+@keyframes tech-wave-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tech-wave-float { animation: none; will-change: auto; }
+  .tech-card { transition: none; }
 }
 
 @keyframes shimmer {

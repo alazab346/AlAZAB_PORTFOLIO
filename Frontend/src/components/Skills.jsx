@@ -2,19 +2,43 @@ import { useRef, useEffect } from 'react';
 import { motion, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { usePortfolioData } from '../context/PortfolioContext';
 import {
-  FaReact, FaHtml5, FaCss3Alt, FaPython, FaNodeJs, FaGithub, FaFigma, FaCode,
+  FaReact, FaHtml5, FaCss3Alt, FaPython, FaNodeJs, FaJava, FaFigma, FaCode,
+  FaDatabase, FaLayerGroup,
 } from 'react-icons/fa';
 import {
-  SiNextdotjs, SiTypescript, SiJavascript, SiTailwindcss, SiFramer,
-  SiDjango, SiPostman, SiPostgresql, SiVercel,
+  SiNextdotjs, SiTypescript, SiJavascript, SiTailwindcss, SiDjango, SiPostman,
+  SiPostgresql, SiVercel, SiExpo, SiExpress, SiElectron, SiSupabase, SiPrisma,
+  SiAuth0, SiJsonwebtokens, SiGit, SiGithub, SiAndroidstudio, SiNetlify,
+  SiCloudflare, SiReactquery,
 } from 'react-icons/si';
 
 const iconMap = {
-  FaReact, FaHtml5, FaCss3Alt, FaPython, FaNodeJs, FaGithub, FaFigma, FaCode,
-  SiNextdotjs, SiTypescript, SiJavascript, SiTailwindcss, SiFramer,
-  SiDjango, SiPostman, SiPostgresql, SiVercel,
+  FaReact, FaHtml5, FaCss3Alt, FaPython, FaNodeJs, FaJava, FaFigma, FaCode,
+  FaDatabase, FaLayerGroup,
+  SiNextdotjs, SiTypescript, SiJavascript, SiTailwindcss, SiDjango, SiPostman,
+  SiPostgresql, SiVercel, SiExpo, SiExpress, SiElectron, SiSupabase, SiPrisma,
+  SiAuth0, SiJsonwebtokens, SiGit, SiGithub, SiAndroidstudio, SiNetlify,
+  SiCloudflare, SiReactquery,
   SiVisualstudiocode: FaCode,
 };
+
+// Keep very dark brand colours (Next.js, Express, Vercel...) readable on the dark theme.
+function readableColor(hex) {
+  const m = /^#?([0-9a-f]{6})$/i.exec(hex || '');
+  if (!m) return '#e2e8f0';
+  const n = parseInt(m[1], 16);
+  const [r, g, b] = [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  const perceived = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  if (perceived < 0.15) return '#e2e8f0';
+  if (perceived < 0.42) {
+    const mix = (c) => Math.round(c + (255 - c) * 0.45);
+    return `rgb(${mix(r)}, ${mix(g)}, ${mix(b)})`;
+  }
+  return hex;
+}
+
+// Gentle sine offset (px) for the wave; scaled down on small screens via CSS.
+const waveOffset = (index) => Math.round(Math.sin((index * 2 * Math.PI) / 5) * 10);
 
 function Counter({ value }) {
   const ref = useRef(null);
@@ -30,77 +54,29 @@ function Counter({ value }) {
   return <motion.span ref={ref}>{display}</motion.span>;
 }
 
-function SkillCard({ skill, index }) {
-  const Icon = iconMap[skill.icon];
+function TechCard({ skill, index }) {
+  const Icon = iconMap[skill.icon] || FaCode;
+  const color = readableColor(skill.color);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
+    <motion.li
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-20px' }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -4, scale: 1.01 }}
-      className="glass-card p-5 flex items-center gap-4 relative overflow-hidden group"
-      style={{ '--skill-color': skill.color }}
+      transition={{ duration: 0.45, delay: Math.min(index, 8) * 0.05 }}
+      className="tech-wave-item w-[calc(50%-0.5rem)] sm:w-44 lg:w-48"
+      style={{ '--wave-y': `${waveOffset(index)}px` }}
     >
-      {/* Subtle background glow */}
-      <div 
-        className="absolute inset-0 opacity-0 group-hover:opacity-[0.03] transition-opacity duration-300" 
-        style={{ background: skill.color }} 
-      />
-      
-      {/* Icon Container - Left Side */}
-      <div className="w-14 h-14 flex items-center justify-center relative shrink-0">
-        <div 
-          className="absolute inset-0 rounded-2xl blur-sm opacity-10 group-hover:opacity-20 transition-opacity duration-300"
-          style={{ background: skill.color }}
-        />
-        <div 
-          className="absolute inset-0 rounded-2xl opacity-5"
-          style={{ background: skill.color }}
-        />
-        {Icon && (
-          <Icon 
-            className="w-7 h-7 relative z-10 transition-transform duration-300 group-hover:scale-110" 
-            style={{ color: skill.color }} 
-          />
-        )}
-      </div>
-
-      {/* Content - Right Side */}
-      <div className="flex-1 min-w-0">
-        {/* Skill Name and Percentage */}
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-sm font-semibold text-slate-200 truncate">
-            {skill.name}
-          </span>
-          <span className="text-sm font-bold text-slate-400 ml-3 shrink-0">
-            <Counter value={skill.level} />%
-          </span>
-        </div>
-
-        {/* Progress Bar with Handle */}
-        <div className="relative w-full h-1.5 bg-slate-800/40 rounded-full overflow-visible">
-          <motion.div
-            className="absolute top-0 left-0 h-full rounded-full"
-            style={{ 
-              background: skill.color,
-              boxShadow: `0 0 8px ${skill.color}60` 
-            }}
-            initial={{ width: 0 }}
-            whileInView={{ width: `${skill.level}%` }}
-            transition={{ duration: 1.2, delay: 0.2 + index * 0.08, ease: 'easeOut' }}
-            viewport={{ once: true }}
-          >
-            {/* Circular Handle at the end */}
-            <div 
-              className="absolute right-0 top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full border-2 border-white shadow-lg"
-              style={{ background: skill.color }}
-            />
-          </motion.div>
+      <div className="tech-wave-float" style={{ animationDelay: `${-index * 0.45}s` }}>
+        <div
+          className="tech-card glass-card group flex items-center gap-3 px-4 py-3.5"
+          style={{ '--tech-color': color }}
+        >
+          <Icon className="w-6 h-6 shrink-0 transition-transform duration-300 group-hover:scale-110" style={{ color }} aria-hidden="true" />
+          <span className="text-sm font-semibold text-slate-200 truncate">{skill.name}</span>
         </div>
       </div>
-    </motion.div>
+    </motion.li>
   );
 }
 
@@ -224,12 +200,12 @@ export default function Skills() {
                 </div>
               </motion.div>
 
-              {/* Skills Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Wave-flow technology cards */}
+              <ul className="tech-wave flex flex-wrap justify-center gap-x-4 gap-y-10 py-4 list-none p-0 m-0" aria-label={cat.name}>
                 {cat.skills.map((skill, index) => (
-                  <SkillCard key={skill.name} skill={skill} index={index} />
+                  <TechCard key={skill.name} skill={skill} index={index} />
                 ))}
-              </div>
+              </ul>
 
             </div>
           ))}
