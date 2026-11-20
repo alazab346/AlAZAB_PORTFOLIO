@@ -11,6 +11,18 @@ export default {
         display: ['Space Grotesk', 'sans-serif'],
       },
       colors: {
+        // Theme tokens — values live in index.css and switch with [data-theme]
+        page:   { DEFAULT: 'rgb(var(--page) / <alpha-value>)', 2: 'rgb(var(--page-2) / <alpha-value>)' },
+        surface: 'rgb(var(--surface) / <alpha-value>)',
+        ink:    { DEFAULT: 'rgb(var(--ink) / <alpha-value>)', 2: 'rgb(var(--ink-2) / <alpha-value>)' },
+        muted:  'rgb(var(--muted) / <alpha-value>)',
+        faint:  'rgb(var(--faint) / <alpha-value>)',
+        line:   'rgb(var(--line) / <alpha-value>)',
+        accent: {
+          DEFAULT: 'rgb(var(--accent) / <alpha-value>)',
+          strong:  'rgb(var(--accent-strong) / <alpha-value>)',
+          text:    'rgb(var(--accent-text) / <alpha-value>)',
+        },
         primary: {
           DEFAULT: '#00d4ff',
           50: '#e0faff',

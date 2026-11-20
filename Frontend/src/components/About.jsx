@@ -20,7 +20,7 @@ export default function About() {
 
   return (
     <section id="about" className="py-24 md:py-32 relative overflow-hidden">
-      <div className="blob w-[400px] h-[400px] bg-[#7c3aed] top-0 right-0 opacity-[0.08]" />
+      <div className="blob w-[400px] h-[400px] bg-accent-strong top-0 right-0 opacity-[0.08]" />
 
       <div className="container-custom relative z-10" ref={ref}>
         {/* Section Header */}
@@ -49,31 +49,31 @@ export default function About() {
             <div className="relative">
               
               {/* Main Image Container with Spinning Tech Border */}
-              <div className="about-image-border relative w-[300px] sm:w-[360px] rounded-3xl p-[2px] overflow-hidden group shadow-[0_0_40px_rgba(0,212,255,0.15)] bg-[#0a0a0f]">
+              <div className="about-image-border relative w-[300px] sm:w-[360px] rounded-3xl p-[2px] overflow-hidden group shadow-[0_0_40px_rgb(var(--accent)/0.15)] bg-page">
                 
                 {/* Techno Spinning Laser Background */}
                 <motion.div 
                   className="about-spinning-border absolute left-[-50%] top-[-50%] w-[200%] h-[200%]"
                   style={{
-                    background: 'conic-gradient(from 0deg, transparent 60%, rgba(0, 212, 255, 0.8) 80%, rgba(124, 58, 237, 1) 100%)',
+                    background: 'conic-gradient(from 0deg, transparent 60%, rgb(var(--accent)/0.8) 80%, rgb(var(--accent-strong)/1) 100%)',
                   }}
                   animate={{ rotate: 360 }}
                   transition={{ duration: 3.5, repeat: Infinity, ease: "linear" }}
                 />
                 
                 {/* Inner Image Mask */}
-                <div className="relative rounded-[calc(1.5rem-2px)] overflow-hidden bg-[#111118] h-full w-full z-10">
+                <div className="relative rounded-[calc(1.5rem-2px)] overflow-hidden bg-surface h-full w-full z-10">
                   <img
                     src="/Al-Azab-picture.jpg"
                     alt="Mohammed Alazab – About"
                     className="w-full h-auto object-cover object-top opacity-90 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-[1.02]"
                     style={{ minHeight: '400px', objectPosition: 'top center' }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/80 via-[#0a0a0f]/20 to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-page/70 via-page/10 to-transparent pointer-events-none" />
                   
                   {/* Digital Scanline Overlay */}
                   <motion.div 
-                    className="absolute inset-x-0 h-[3px] bg-gradient-to-r from-transparent via-[#00d4ff]/40 to-transparent blur-[1px] pointer-events-none"
+                    className="absolute inset-x-0 h-[3px] bg-gradient-to-r from-transparent via-accent/40 to-transparent blur-[1px] pointer-events-none"
                     animate={{ top: ['0%', '100%'] }}
                     transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
                   />
@@ -82,24 +82,24 @@ export default function About() {
 
               {/* Floating card - Experience */}
               <motion.div
-                className="absolute -bottom-6 -right-6 glass-card px-5 py-4 rounded-2xl shadow-[0_0_30px_rgba(0,0,0,0.8)] z-20 border border-white/10"
+                className="absolute -bottom-6 -right-6 glass-card px-5 py-4 rounded-2xl shadow-[0_18px_40px_-18px_rgb(var(--shadow)/0.55)] z-20 border border-line"
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.6 }}
               >
                 <span className="text-2xl font-bold font-display text-gradient block">{about.yearsOfExperience}+</span>
-                <span className="text-xs text-slate-400">Year of Experience</span>
+                <span className="text-xs text-muted">Year of Experience</span>
               </motion.div>
 
               {/* Floating card - Projects */}
               <motion.div
-                className="absolute -top-6 -left-6 glass-card px-5 py-4 rounded-2xl shadow-[0_0_30px_rgba(0,0,0,0.8)] z-20 border border-white/10"
+                className="absolute -top-6 -left-6 glass-card px-5 py-4 rounded-2xl shadow-[0_18px_40px_-18px_rgb(var(--shadow)/0.55)] z-20 border border-line"
                 initial={{ opacity: 0, y: -20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.7 }}
               >
                 <span className="text-2xl font-bold font-display text-gradient block">{about.projectsDone}+</span>
-                <span className="text-xs text-slate-400">Projects Done</span>
+                <span className="text-xs text-muted">Projects Done</span>
               </motion.div>
 
               {/* Outer Techno Pulsing Frames (Softened and Elegant) */}
@@ -110,12 +110,11 @@ export default function About() {
                   <motion.rect
                     x="0" y="0" width="100%" height="100%" rx="36"
                     fill="none"
-                    stroke="#00d4ff"
-                    strokeWidth="1"
+                                        strokeWidth="1"
                     animate={{ opacity: [0.1, 0.3, 0.1] }}
                     transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
                     className="about-inner-frame opacity-30"
-                    style={{ filter: 'drop-shadow(0 0 8px rgba(0,212,255,0.3))' }}
+                    style={{ stroke: 'rgb(var(--accent))' }}
                   />
                 </svg>
               </div>
@@ -126,14 +125,13 @@ export default function About() {
                   <motion.rect
                     x="0" y="0" width="100%" height="100%" rx="48"
                     fill="none"
-                    stroke="#7c3aed"
-                    strokeWidth="1.5"
+                                        strokeWidth="1.5"
                     strokeDasharray="20 40"
                     strokeLinecap="round"
                     animate={{ strokeDashoffset: [0, -360] }}
                     transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
                     className="about-outer-frame opacity-30"
-                    style={{ filter: 'drop-shadow(0 0 4px rgba(124,58,237,0.3))' }}
+                    style={{ stroke: 'rgb(var(--accent-strong))' }}
                   />
                 </svg>
               </div>
@@ -146,13 +144,13 @@ export default function About() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.3 }}
           >
-            <h3 className="text-2xl md:text-3xl font-bold font-display text-white mb-4">
+            <h3 className="text-2xl md:text-3xl font-bold font-display text-ink mb-4">
               {about.introHeading}{' '}
               &amp;{' '}
               <span className="text-gradient">{about.introHeadingHighlight}</span>
             </h3>
 
-            <p className="text-slate-400 leading-relaxed mb-6">
+            <p className="text-muted leading-relaxed mb-6">
               {about.introDescription}
             </p>
 
@@ -166,8 +164,8 @@ export default function About() {
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ delay: 0.5 + i * 0.1 }}
                 >
-                  <HiCheckBadge className="w-5 h-5 text-[#00d4ff] flex-shrink-0 mt-0.5" />
-                  <span className="text-slate-300 text-sm">{item}</span>
+                  <HiCheckBadge className="w-5 h-5 text-accent-text flex-shrink-0 mt-0.5" />
+                  <span className="text-ink-2 text-sm">{item}</span>
                 </motion.div>
               ))}
             </div>
@@ -178,8 +176,8 @@ export default function About() {
                 <div key={label} className="glass-card p-3 rounded-xl flex items-center gap-3">
                   <span className="text-xl">{emoji}</span>
                   <div>
-                    <span className="text-[10px] text-slate-500 uppercase tracking-wider block">{label}</span>
-                    <span className="text-sm text-slate-200 font-medium">{value}</span>
+                    <span className="text-[10px] text-faint uppercase tracking-wider block">{label}</span>
+                    <span className="text-sm text-ink-2 font-medium">{value}</span>
                   </div>
                 </div>
               ))}

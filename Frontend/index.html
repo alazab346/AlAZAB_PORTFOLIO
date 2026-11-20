@@ -13,6 +13,18 @@
     <link rel="manifest" href="/src/assets/favicon/site.webmanifest" />
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Apply the saved theme before first paint (same logic as src/theme.js) -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('theme') === 'light' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', t);
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
     
     <!-- SEO Meta Tags -->
     <title>Mohammed Alazab | Software Engineer & Full-Stack Developer</title>
@@ -20,7 +32,7 @@
     <meta name="keywords" content="Mohammed Alazab, Software Engineer, Full-Stack Developer, Web Developer, React Developer, Next.js Developer, Mobile App Developer, JavaScript, TypeScript, Tailwind CSS, Portfolio, Malaysia Developer, Computer Science" />
     <meta name="author" content="Mohammed Alazab" />
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#00d4ff" />
+    <meta name="theme-color" content="#080B12" />
     
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Mohammed Alazab | Software Engineer & Full-Stack Developer" />

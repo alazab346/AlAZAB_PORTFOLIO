@@ -27,7 +27,7 @@ const FALLBACK_DATA = {
     introDescription:
       "I am Mohammed Alazab, a Bachelor of Computer Science (Honours) student at Albukhary International University, Malaysia, with a strong interest in software engineering, full-stack development, and building practical technology solutions. My experience includes corporate websites, administrative dashboards, business management systems, and cross-platform applications. I enjoy frontend and backend engineering, designing database-driven systems, integrating APIs, and improving usability, performance, and maintainability. My goal is to contribute to real-world software projects, learn from engineering teams, and build reliable solutions to meaningful problems.",
     yearsOfExperience: 2,
-    projectsDone: 4,
+    projectsDone: 5,
     location: 'Malaysia (Available Remotely)',
     role: 'Software Engineer | Full-Stack & Web Developer',
     education: 'Bachelor of Computer Science (Honours), Albukhary International University',
@@ -61,7 +61,6 @@ const FALLBACK_DATA = {
   skillCategories: [
     {
       name: 'Programming Languages',
-      color: '#00d4ff',
       emoji: '💻',
       skills: [
         { name: 'JavaScript',    icon: 'SiJavascript',        color: '#f7df1e' },
@@ -75,7 +74,6 @@ const FALLBACK_DATA = {
     },
     {
       name: 'Web & Mobile Development',
-      color: '#7c3aed',
       emoji: '🚀',
       skills: [
         { name: 'React',         icon: 'FaReact',             color: '#61dafb' },
@@ -92,7 +90,6 @@ const FALLBACK_DATA = {
     },
     {
       name: 'Databases & Backend',
-      color: '#10b981',
       emoji: '🗄️',
       skills: [
         { name: 'PostgreSQL',    icon: 'SiPostgresql',        color: '#336791' },
@@ -104,7 +101,6 @@ const FALLBACK_DATA = {
     },
     {
       name: 'Development Tools & Cloud',
-      color: '#f59e0b',
       emoji: '🛠️',
       skills: [
         { name: 'Git',           icon: 'SiGit',                 color: '#f54d27' },
@@ -125,13 +121,24 @@ const FALLBACK_DATA = {
   // Projects
   projects: [
     {
+      id: 0,
+      title: 'Job Rotation & Multi-Skill Development Planner',
+      subtitle: 'Final Year Project · Workforce Decision-Support System',
+      description:
+        'Developing a full-stack workforce planning platform that transforms employee skill matrices and operational constraints into explainable training and job-rotation recommendations. A team-based Final Year Project for HICOM Engineering.',
+      tags: 'React, Vite, Node.js, Express.js, PostgreSQL, Prisma',
+      githubUrl: 'https://github.com/alazab346/FYP2-Job-Rotation-Planner',
+      liveUrl: '',
+      image: '/fyp-job-rotation-planner.png',
+      emoji: '🏭',
+      isFeatured: true,
+      status: 'In Development',
+    },
+    {
       id: 1,
       title: 'Al Matar Car Wash Management System',
       description:
         'Developed a web-based car wash management system to streamline daily operations, customer information, service packages, subscriptions, and administrative workflows. The application combines an operational management interface with a customer-facing website and centralized data management.',
-      gradientStart: '#00d4ff',
-      gradientEnd: '#7c3aed',
-      accentColor: '#00d4ff',
       tags: 'TypeScript, Next.js, React, Tailwind CSS, Supabase, PostgreSQL, Vercel',
       githubUrl: '',
       liveUrl: '',
@@ -144,9 +151,6 @@ const FALLBACK_DATA = {
       title: 'My Planner: Cross-Platform Productivity App',
       description:
         'Developed a cross-platform productivity application designed to organize tasks, manage schedules, and improve daily planning. The architecture uses a shared backend and database to support mobile, desktop, and web experiences with React Native, Expo, Electron, and a REST API backend.',
-      gradientStart: '#7c3aed',
-      gradientEnd: '#3b82f6',
-      accentColor: '#7c3aed',
       tags: 'React Native, Expo, Node.js, Express.js, PostgreSQL, Electron, JWT, Zustand, TanStack Query',
       githubUrl: 'https://github.com/alazab346/my-planner-app',
       liveUrl: '',
@@ -159,9 +163,6 @@ const FALLBACK_DATA = {
       title: 'ProEx Nova: Corporate Website & Admin Dashboard',
       description:
         'Developed and maintained a professional corporate website and administrative dashboard for ProEx Nova, supporting online business presence, content administration, and site operations. Includes frontend/backend integration, database, authentication, deployment, and ongoing enhancements.',
-      gradientStart: '#f59e0b',
-      gradientEnd: '#ef4444',
-      accentColor: '#f59e0b',
       tags: 'JavaScript, Next.js, React, PostgreSQL, Prisma, NextAuth.js, Netlify, Cloudflare',
       githubUrl: '',
       liveUrl: 'http://proexnova.com/',
@@ -174,9 +175,6 @@ const FALLBACK_DATA = {
       title: 'Craft Hub: Manufacturing Management System',
       description:
         'A software project focused on supporting manufacturing-related management processes through a centralized application. Designed to streamline operations and improve workflow efficiency.',
-      gradientStart: '#10b981',
-      gradientEnd: '#059669',
-      accentColor: '#10b981',
       tags: 'Management System, Business Operations',
       githubUrl: 'https://github.com/alazab346/Craft_HubWeb',
       liveUrl: '',
@@ -312,9 +310,6 @@ const transformPortfolioData = (dbData) => {
       id: project._id || index + 1,
       title: project.title,
       description: project.description,
-      gradientStart: '#00d4ff',
-      gradientEnd: '#7c3aed',
-      accentColor: project.featured ? '#00d4ff' : '#7c3aed',
       tags: project.technologies?.join(', ') || '',
       githubUrl: project.githubUrl || '',
       liveUrl: project.liveUrl || '',

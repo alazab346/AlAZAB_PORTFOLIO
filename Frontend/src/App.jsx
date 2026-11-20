@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -12,12 +11,12 @@ import { Analytics } from '@vercel/analytics/react';
 import { PortfolioProvider } from './context/PortfolioContext';
 
 const SectionDivider = () => (
-  <div className="w-full h-px bg-gradient-to-r from-transparent via-[#00d4ff]/20 to-transparent section-divider" />
+  <div className="section-divider" aria-hidden="true" />
 );
 
 function Portfolio() {
   return (
-    <div className="min-h-screen text-slate-100 relative">
+    <div className="min-h-screen text-ink-2 relative">
       <div className="relative z-20">
         <Navbar />
         <main>
@@ -48,24 +47,6 @@ function AppContent() {
 }
 
 export default function App() {
-  // Initialize theme on app load
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    const isDark = savedTheme === 'dark';
-    
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    
-    if (isDark) {
-      document.documentElement.style.colorScheme = 'dark';
-      document.body.style.backgroundColor = '#0a0a0f';
-      document.body.style.color = '#e2e8f0';
-    } else {
-      document.documentElement.style.colorScheme = 'light';
-      document.body.style.backgroundColor = '#f7f3f0';
-      document.body.style.color = '#2d2d2d';
-    }
-  }, []);
-
   return (
     <PortfolioProvider>
       <Router>

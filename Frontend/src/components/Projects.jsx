@@ -63,7 +63,7 @@ function ProjectSlideshow({ images, title, hovered }) {
           <div 
             key={i}
             className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-              i === currentIndex ? 'bg-cyan-400 w-4' : 'bg-white/20'
+              i === currentIndex ? 'bg-cyan-400 w-4' : 'bg-ink/20'
             }`}
           />
         ))}
@@ -81,35 +81,19 @@ function ProjectSlideshow({ images, title, hovered }) {
   );
 }
 
-function ProjectTag({ tag, accentColor }) {
-  const [isHovered, setIsHovered] = useState(false);
+function ProjectTag({ tag }) {
   return (
-    <span
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-white/[0.08] bg-white/[0.05] text-slate-400
-        hover:-translate-y-0.5 transition-all duration-300 cursor-default"
-      style={{
-        borderColor: isHovered ? `${accentColor}40` : '',
-        color: isHovered ? accentColor : '',
-        backgroundColor: isHovered ? `${accentColor}15` : '',
-      }}
-    >
-      <div className="w-1.5 h-1.5 rounded-full shadow-sm" style={{ backgroundColor: accentColor, boxShadow: isHovered ? `0 0 8px ${accentColor}` : '' }} />
+    <span className="group/tag flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-line bg-ink/[0.04] text-muted
+      hover:-translate-y-0.5 hover:border-accent/40 hover:bg-accent/10 hover:text-accent-text transition-all duration-300 cursor-default">
+      <span className="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden="true" />
       {tag}
     </span>
   );
 }
 
-function ProjectTitle({ title, accentColor }) {
-  const [isHovered, setIsHovered] = useState(false);
+function ProjectTitle({ title }) {
   return (
-    <h3
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="text-lg font-bold font-display text-white mb-2 transition-colors duration-300 line-clamp-1 w-fit cursor-default"
-      style={{ color: isHovered ? accentColor : '#ffffff' }}
-    >
+    <h3 className="text-lg font-bold font-display text-ink hover:text-accent-text mb-2 transition-colors duration-300 line-clamp-1 w-fit cursor-default">
       {title}
     </h3>
   );
@@ -131,7 +115,7 @@ function ProjectCard({ project, index }) {
       id={`project-card-${project.id}`}
     >
       {/* Project visual */}
-      <div className="relative h-48 sm:h-52 overflow-hidden shrink-0 bg-slate-900">
+      <div className="relative h-48 sm:h-52 overflow-hidden shrink-0 bg-page-2">
         {project.images ? (
           <ProjectSlideshow images={project.images} title={project.title} hovered={hovered} />
         ) : imageSrc ? (
@@ -174,14 +158,14 @@ function ProjectCard({ project, index }) {
           <>
             <div
               className="absolute inset-0 opacity-20"
-              style={{ background: `linear-gradient(135deg, ${project.gradientStart || '#00d4ff'}, ${project.gradientEnd || '#7c3aed'})` }}
+              style={{ background: 'linear-gradient(135deg, rgb(var(--accent)), rgb(var(--accent-strong)))' }}
             />
             <div className="absolute inset-0 dot-grid opacity-30" />
             <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
               <span className="text-6xl mb-4 opacity-30 group-hover:scale-110 transition-transform duration-500">
                 {project.emoji || '🚀'}
               </span>
-              <span className="text-xl font-bold font-display text-white/40 tracking-wider uppercase group-hover:text-white/60 transition-colors duration-500">
+              <span className="text-xl font-bold font-display text-ink/40 tracking-wider uppercase group-hover:text-ink/60 transition-colors duration-500">
                 {project.title}
               </span>
             </div>
@@ -192,15 +176,15 @@ function ProjectCard({ project, index }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: hovered ? 1 : 0 }}
           transition={{ duration: 0.2 }}
-          style={{ background: 'rgba(10,10,15,0.75)', backdropFilter: 'blur(4px)' }}
+          style={{ background: 'rgb(var(--page) / 0.8)', backdropFilter: 'blur(4px)' }}
         >
           {project.githubUrl && (
             <a
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl glass-card text-white
-                hover:text-[#00d4ff] hover:border-[#00d4ff]/30 transition-all duration-200 text-sm font-medium"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl glass-card text-ink
+                hover:text-accent-text hover:border-accent/30 transition-all duration-200 text-sm font-medium"
               onClick={(e) => e.stopPropagation()}
             >
               <FaGithub className="w-4 h-4" />
@@ -221,27 +205,28 @@ function ProjectCard({ project, index }) {
           )}
         </motion.div>
 
-        {/* Featured badge */}
-        {project.isFeatured && (
-          <div className="absolute top-3 right-3 z-30">
-            <span
-              className="text-xs font-semibold px-3 py-1 rounded-full"
-              style={{
-                background: `${project.accentColor}20`,
-                border: `1px solid ${project.accentColor}40`,
-                color: project.accentColor,
-              }}
-            >
+        {/* Status / Featured badge */}
+        <div className="absolute top-3 right-3 z-30 flex flex-col items-end gap-1.5">
+          {project.status && (
+            <span className="text-xs font-semibold px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-400 backdrop-blur">
+              {project.status}
+            </span>
+          )}
+          {project.isFeatured && !project.status && (
+            <span className="text-xs font-semibold px-3 py-1 rounded-full bg-accent/15 border border-accent/30 text-accent-text backdrop-blur">
               Featured
             </span>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       {/* Content */}
       <div className="p-6 flex flex-col flex-1">
-        <ProjectTitle title={project.title} accentColor={project.accentColor} />
-        <p className="text-sm text-slate-400 leading-relaxed mb-6 flex-grow mt-1">
+        <ProjectTitle title={project.title} />
+        {project.subtitle && (
+          <p className="text-xs font-medium text-accent-text/80 mb-1.5 tracking-wide">{project.subtitle}</p>
+        )}
+        <p className="text-sm text-muted leading-relaxed mb-6 flex-grow mt-1">
           {project.description}
         </p>
 
@@ -249,7 +234,7 @@ function ProjectCard({ project, index }) {
         <div className="flex flex-wrap gap-2 mt-auto relative z-10 pointer-events-auto">
           {project.tags.split(',').map((tag_item) => {
             const tag = tag_item.trim();
-            return <ProjectTag key={tag} tag={tag} accentColor={project.accentColor} />;
+            return <ProjectTag key={tag} tag={tag} />;
           })}
         </div>
       </div>
@@ -267,8 +252,8 @@ export default function Projects() {
       <section id="projects" className="py-24 md:py-32 relative overflow-hidden">
         <div className="container-custom flex items-center justify-center">
           <div className="text-center">
-            <div className="w-16 h-16 border-4 border-[#00d4ff] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-slate-400">Loading projects...</p>
+            <div className="w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-muted">Loading projects...</p>
           </div>
         </div>
       </section>
@@ -277,8 +262,8 @@ export default function Projects() {
 
   return (
     <section id="projects" className="py-24 md:py-32 relative overflow-hidden">
-      <div className="blob w-[500px] h-[500px] bg-[#7c3aed] top-1/2 right-0 opacity-[0.07] -translate-y-1/2" />
-      <div className="blob w-[400px] h-[400px] bg-[#00d4ff] bottom-0 left-1/4 opacity-[0.05]" />
+      <div className="blob w-[500px] h-[500px] bg-accent-strong top-1/2 right-0 opacity-[0.07] -translate-y-1/2" />
+      <div className="blob w-[400px] h-[400px] bg-accent bottom-0 left-1/4 opacity-[0.05]" />
 
       <div className="container-custom relative z-10" ref={ref}>
         {/* Header */}
@@ -291,7 +276,7 @@ export default function Projects() {
           <h2 className="section-title">
             Featured <span className="text-gradient">Projects</span>
           </h2>
-          <p className="text-slate-400 text-lg max-w-2xl">
+          <p className="text-muted text-lg max-w-2xl">
             A selection of projects that showcase my skills and passion for building great products
           </p>
         </motion.div>
@@ -316,14 +301,14 @@ export default function Projects() {
             target="_blank"
             rel="noopener noreferrer"
             className="group relative flex items-center gap-3 px-8 py-4 rounded-xl overflow-hidden
-              bg-white/[0.03] border border-white/[0.08] hover:border-[#00d4ff]/50
+              bg-ink/[0.03] border border-line hover:border-accent/50
               transition-all duration-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
           >
             {/* Animated background gradient */}
             <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-[#00d4ff]/0 via-[#00d4ff]/10 to-[#00d4ff]/0"
+              className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/10 to-accent/0"
               initial={{ x: '-100%' }}
               whileHover={{ x: '100%' }}
               transition={{ duration: 0.6, ease: "easeInOut" }}
@@ -331,7 +316,7 @@ export default function Projects() {
             
             {/* Scan line animation */}
             <motion.div 
-              className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#00d4ff] to-transparent opacity-60 z-10"
+              className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-accent to-transparent opacity-60 z-10"
               animate={{ 
                 top: ["-10%", "110%"],
               }}
@@ -345,7 +330,7 @@ export default function Projects() {
             
             {/* Glow effect */}
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <div className="absolute inset-0 bg-[#00d4ff]/5 blur-xl" />
+              <div className="absolute inset-0 bg-accent/5 blur-xl" />
             </div>
 
             {/* Content */}
@@ -354,16 +339,16 @@ export default function Projects() {
               animate={{ rotate: [0, 360] }}
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
             >
-              <FaGithub className="w-5 h-5 text-slate-400 group-hover:text-[#00d4ff] transition-colors duration-300" />
+              <FaGithub className="w-5 h-5 text-muted group-hover:text-accent-text transition-colors duration-300" />
             </motion.div>
             
-            <span className="relative z-10 text-sm font-medium text-slate-400 group-hover:text-white transition-colors duration-300">
+            <span className="relative z-10 text-sm font-medium text-muted group-hover:text-ink transition-colors duration-300">
               View more on GitHub
             </span>
 
             {/* Arrow animation */}
             <motion.div
-              className="relative z-10 text-slate-400 group-hover:text-[#00d4ff] transition-colors duration-300"
+              className="relative z-10 text-muted group-hover:text-accent-text transition-colors duration-300"
               animate={{ x: [0, 4, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
             >
@@ -371,10 +356,10 @@ export default function Projects() {
             </motion.div>
 
             {/* Corner accents */}
-            <div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-[#00d4ff]/0 group-hover:border-[#00d4ff]/50 transition-all duration-300" />
-            <div className="absolute top-0 right-0 w-2 h-2 border-r border-t border-[#00d4ff]/0 group-hover:border-[#00d4ff]/50 transition-all duration-300" />
-            <div className="absolute bottom-0 left-0 w-2 h-2 border-l border-b border-[#00d4ff]/0 group-hover:border-[#00d4ff]/50 transition-all duration-300" />
-            <div className="absolute bottom-0 right-0 w-2 h-2 border-r border-b border-[#00d4ff]/0 group-hover:border-[#00d4ff]/50 transition-all duration-300" />
+            <div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-accent/0 group-hover:border-accent/50 transition-all duration-300" />
+            <div className="absolute top-0 right-0 w-2 h-2 border-r border-t border-accent/0 group-hover:border-accent/50 transition-all duration-300" />
+            <div className="absolute bottom-0 left-0 w-2 h-2 border-l border-b border-accent/0 group-hover:border-accent/50 transition-all duration-300" />
+            <div className="absolute bottom-0 right-0 w-2 h-2 border-r border-b border-accent/0 group-hover:border-accent/50 transition-all duration-300" />
           </motion.a>
         </motion.div>
       </div>

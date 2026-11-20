@@ -112,7 +112,7 @@ export default function FileUpload({
       <div
         className={`relative border-2 border-dashed rounded-xl p-6 transition-all duration-200 ${
           dragActive 
-            ? 'border-[#00d4ff] bg-[#00d4ff]/5' 
+            ? 'border-accent bg-accent/5' 
             : 'border-white/20 hover:border-white/30'
         }`}
         onDragEnter={handleDrag}
@@ -146,7 +146,7 @@ export default function FileUpload({
               </div>
             ) : (
               <div className="flex items-center gap-3 p-3 bg-white/5 rounded-lg">
-                <Icon className="w-8 h-8 text-[#00d4ff]" />
+                <Icon className="w-8 h-8 text-accent-text" />
                 <div className="flex-1">
                   <p className="text-sm font-medium text-slate-200">
                     {onChange.name || 'File selected'}

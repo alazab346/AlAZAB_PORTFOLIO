@@ -4,6 +4,7 @@ import { Link } from 'react-scroll';
 import { HiMenuAlt3, HiX } from 'react-icons/hi';
 import { HiArrowDownTray, HiSwatch } from 'react-icons/hi2';
 import { PORTFOLIO_DATA } from '../context/PortfolioContext';
+import { useTheme } from '../theme';
 
 const navLinks = [
   { label: 'Home',     to: 'home'     },
@@ -17,37 +18,14 @@ export default function Navbar() {
   const [scrolled, setScrolled]     = useState(false);
   const [menuOpen, setMenuOpen]     = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const [isDark, setIsDark] = useState(true);
+  const { isDark, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     
-    // Check saved theme
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light') {
-      setIsDark(false);
-    }
-    
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const toggleTheme = () => {
-    const newTheme = !isDark;
-    setIsDark(newTheme);
-    localStorage.setItem('theme', newTheme ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-theme', newTheme ? 'dark' : 'light');
-    
-    if (newTheme) {
-      document.documentElement.style.colorScheme = 'dark';
-      document.body.style.backgroundColor = '#0a0a0f';
-      document.body.style.color = '#e2e8f0';
-    } else {
-      document.documentElement.style.colorScheme = 'light';
-      document.body.style.backgroundColor = '#f7f3f0';
-      document.body.style.color = '#2d2d2d';
-    }
-  };
 
   return (
     <>
@@ -57,8 +35,8 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: 'easeOut' }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? 'bg-[#0a0a0f]/90 backdrop-blur-xl border-b border-white/[0.06] shadow-[0_4px_30px_rgba(0,0,0,0.5)]'
-            : 'bg-transparent'
+            ? 'bg-page/85 backdrop-blur-xl border-b border-line shadow-[0_8px_30px_-18px_rgb(var(--shadow)/0.5)]'
+            : 'bg-transparent border-b border-transparent'
         }`}
       >
         <div className="container-custom">
@@ -70,10 +48,10 @@ export default function Navbar() {
               transition={{ delay: 0.2 }}
               className="flex items-center gap-2"
             >
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#00d4ff] to-[#7c3aed] flex items-center justify-center shadow-[0_0_15px_rgba(0,212,255,0.4)]">
+              <div className="w-8 h-8 rounded-lg bg-accent-strong flex items-center justify-center shadow-[0_6px_16px_-6px_rgb(var(--accent)/0.7)]">
                 <span className="text-white font-bold text-sm font-display">M</span>
               </div>
-              <span className="text-white font-display font-bold text-lg">
+              <span className="text-ink font-display font-bold text-lg">
                 Mohammed Alazab <span className="text-gradient text-base">Portfolio</span>
               </span>
             </motion.div>
@@ -113,11 +91,11 @@ export default function Navbar() {
               {/* Theme Toggle Button */}
               <motion.button
                 onClick={toggleTheme}
-                className="p-2.5 rounded-lg glass-card text-[#00d4ff] hover:border-[#00d4ff]/50 hover:shadow-[0_0_15px_rgba(0,212,255,0.3)] transition-all duration-300"
+                className="p-2.5 rounded-lg glass-card text-accent-text hover:border-accent/50 transition-all duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                title="Toggle theme"
-                aria-label="Toggle theme"
+                title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+                aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
               >
                 <motion.div
                   animate={{ rotate: isDark ? 0 : 360 }}
@@ -141,7 +119,7 @@ export default function Navbar() {
             {/* Hamburger */}
             <button
               id="mobile-menu-toggle"
-              className="md:hidden w-10 h-10 flex items-center justify-center rounded-xl glass-card text-white/80 hover:text-white transition-colors"
+              className="md:hidden w-10 h-10 flex items-center justify-center rounded-xl glass-card text-ink-2 hover:text-ink transition-colors"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"
             >
@@ -159,7 +137,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0, height: 'auto' }}
             exit={{ opacity: 0, y: -20, height: 0 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="fixed top-16 left-0 right-0 z-40 md:hidden bg-[#0a0a0f]/95 backdrop-blur-xl border-b border-white/[0.06] overflow-hidden"
+            className="fixed top-16 left-0 right-0 z-40 md:hidden bg-page/95 backdrop-blur-xl border-b border-line overflow-hidden"
           >
             <div className="container-custom py-6 flex flex-col gap-4">
               {navLinks.map((link, i) => (
@@ -175,7 +153,7 @@ export default function Navbar() {
                     smooth={true}
                     duration={600}
                     offset={-80}
-                    className="block py-3 px-4 rounded-xl nav-link text-base hover:bg-white/[0.04] cursor-pointer"
+                    className="block py-3 px-4 rounded-xl nav-link text-base hover:bg-ink/[0.05] cursor-pointer"
                     onClick={() => setMenuOpen(false)}
                     id={`mobile-nav-${link.to}`}
                   >
@@ -187,7 +165,7 @@ export default function Navbar() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3 }}
-                className="pt-2 border-t border-white/[0.06] space-y-3"
+                className="pt-2 border-t border-line space-y-3"
               >
                 <button
                   onClick={toggleTheme}

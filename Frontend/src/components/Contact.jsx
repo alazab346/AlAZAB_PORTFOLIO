@@ -20,9 +20,9 @@ export default function Contact() {
   const { contact, socials } = portfolioData;
 
   const contactInfo = [
-    { icon: HiEnvelope, label: 'Email',    value: contact.email,    href: `mailto:${contact.email}`, color: '#00d4ff' },
-    { icon: HiPhone,    label: 'Phone',    value: contact.phone,    href: `tel:${contact.phone}`,    color: '#7c3aed' },
-    { icon: HiMapPin,   label: 'Location', value: contact.location, href: null,                      color: '#10b981' },
+    { icon: HiEnvelope, label: 'Email',    value: contact.email,    href: `mailto:${contact.email}`, color: 'rgb(var(--accent-text))' },
+    { icon: HiPhone,    label: 'Phone',    value: contact.phone,    href: `tel:${contact.phone}`,    color: 'rgb(var(--accent-text))' },
+    { icon: HiMapPin,   label: 'Location', value: contact.location, href: null,                      color: 'rgb(var(--accent-text))' },
   ];
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -61,8 +61,8 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-24 md:py-32 relative overflow-hidden">
-      <div className="blob w-[500px] h-[500px] bg-[#00d4ff] top-0 left-0 opacity-[0.07]" />
-      <div className="blob w-[400px] h-[400px] bg-[#7c3aed] bottom-0 right-0 opacity-[0.07]" />
+      <div className="blob w-[500px] h-[500px] bg-accent top-0 left-0 opacity-[0.07]" />
+      <div className="blob w-[400px] h-[400px] bg-accent-strong bottom-0 right-0 opacity-[0.07]" />
 
       <div className="container-custom relative z-10" ref={ref}>
         {/* Header */}
@@ -89,10 +89,10 @@ export default function Contact() {
             transition={{ duration: 0.7, delay: 0.2 }}
           >
             <div>
-              <h3 className="text-2xl font-bold font-display text-white mb-3">
+              <h3 className="text-2xl font-bold font-display text-ink mb-3">
                 Ready to Start a <span className="text-gradient">Project?</span>
               </h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
+              <p className="text-muted text-sm leading-relaxed">
                 I'm always open to discussing new opportunities, creative projects, or just
                 having a chat about tech. Let's build something awesome together!
               </p>
@@ -107,7 +107,7 @@ export default function Contact() {
                   whileHover={{ 
                     x: 8, 
                     scale: 1.02,
-                    boxShadow: `0 0 30px ${color}40, 0 0 60px ${color}20`
+                    boxShadow: '0 18px 40px -22px rgb(var(--accent)/0.45)'
                   }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
@@ -138,7 +138,7 @@ export default function Contact() {
                   
                   {/* Animated shine effect on hover */}
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-ink/10 to-transparent"
                     initial={{ x: '-100%' }}
                     whileHover={{ x: '200%' }}
                     transition={{ duration: 0.6, ease: "easeInOut" }}
@@ -147,10 +147,10 @@ export default function Contact() {
                   {/* Icon with tech animations */}
                   <motion.div
                     className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 relative z-10"
-                    style={{ background: `${color}15` }}
+                    style={{ background: 'rgb(var(--accent)/0.1)' }}
                     whileHover={{ 
                       scale: 1.1,
-                      boxShadow: `0 0 20px ${color}60`
+                      boxShadow: '0 0 16px rgb(var(--accent)/0.35)'
                     }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   >
@@ -233,13 +233,13 @@ export default function Contact() {
                   </motion.div>
                   
                   <div className="relative z-10">
-                    <span className="text-xs text-slate-500 uppercase tracking-wider block mb-0.5 group-hover:text-slate-400 transition-colors">{label}</span>
+                    <span className="text-xs text-faint uppercase tracking-wider block mb-0.5 group-hover:text-muted transition-colors">{label}</span>
                     {href ? (
-                      <a href={href} className="text-sm text-slate-200 font-medium hover:text-[#00d4ff] transition-colors">
+                      <a href={href} className="text-sm text-ink-2 font-medium hover:text-accent-text transition-colors">
                         {value}
                       </a>
                     ) : (
-                      <span className="text-sm text-slate-200 font-medium group-hover:text-white transition-colors">{value}</span>
+                      <span className="text-sm text-ink-2 font-medium group-hover:text-ink transition-colors">{value}</span>
                     )}
                   </div>
                 </motion.div>
@@ -248,7 +248,7 @@ export default function Contact() {
 
             {/* Social Links */}
             <div>
-              <p className="text-sm text-slate-500 mb-4">Follow me on social media</p>
+              <p className="text-sm text-faint mb-4">Follow me on social media</p>
               <div className="flex gap-3">
                 {socials.map(({ id, label, href, icon }) => {
                   const Icon = iconMap[icon];
@@ -261,8 +261,8 @@ export default function Contact() {
                       rel="noopener noreferrer"
                       aria-label={label}
                       className="w-11 h-11 flex items-center justify-center rounded-xl glass-card
-                        text-slate-400 hover:text-[#00d4ff] hover:border-[#00d4ff]/30
-                        hover:shadow-[0_0_15px_rgba(0,212,255,0.2)] transition-all duration-300"
+                        text-muted hover:text-accent-text hover:border-accent/30
+                        hover:shadow-[0_0_15px_rgb(var(--accent)/0.2)] transition-all duration-300"
                     >
                       {Icon && <Icon className="w-4 h-4" />}
                     </a>
@@ -277,7 +277,7 @@ export default function Contact() {
               <div 
                 className="absolute inset-0 opacity-[0.05] group-hover:opacity-[0.08] transition-opacity duration-700 z-0"
                 style={{
-                  backgroundImage: 'linear-gradient(#10b981 1px, transparent 1px), linear-gradient(90deg, #10b981 1px, transparent 1px)',
+                  backgroundImage: 'linear-gradient(rgb(var(--success)) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--success)) 1px, transparent 1px)',
                   backgroundSize: '32px 32px',
                   backgroundPosition: 'center center'
                 }}
@@ -287,8 +287,8 @@ export default function Contact() {
               <motion.div
                 className="absolute w-full h-[2px] z-[2]"
                 style={{ 
-                  background: 'linear-gradient(90deg, transparent, #10b981, transparent)',
-                  boxShadow: '0 0 20px rgba(16,185,129,0.8), 0 0 40px rgba(16,185,129,0.4)'
+                  background: 'linear-gradient(90deg, transparent, rgb(var(--success)), transparent)',
+                  boxShadow: '0 0 12px rgb(var(--success)/0.5)'
                 }}
                 animate={{ top: ['-10%', '110%'] }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
@@ -296,8 +296,8 @@ export default function Contact() {
               <motion.div
                 className="absolute h-full w-[2px] z-[2]"
                 style={{ 
-                  background: 'linear-gradient(180deg, transparent, #00d4ff, transparent)',
-                  boxShadow: '0 0 20px rgba(0,212,255,0.8), 0 0 40px rgba(0,212,255,0.4)'
+                  background: 'linear-gradient(180deg, transparent, rgb(var(--accent)), transparent)',
+                  boxShadow: '0 0 12px rgb(var(--accent)/0.5)'
                 }}
                 animate={{ left: ['-10%', '110%'] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'linear', delay: 1.5 }}
@@ -307,41 +307,37 @@ export default function Contact() {
               <div className="absolute top-0 left-0 w-12 h-12 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-[2]">
                 <div className="absolute top-0 left-0 w-full h-full border-l-[3px] border-t-[3px] rounded-tl-2xl" 
                   style={{ 
-                    borderColor: '#10b981',
-                    filter: 'drop-shadow(0 0 8px #10b981) drop-shadow(0 0 12px #10b981)'
+                    borderColor: 'rgb(var(--success))'
                   }} 
                 />
               </div>
               <div className="absolute top-0 right-0 w-12 h-12 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="absolute top-0 right-0 w-full h-full border-r-[3px] border-t-[3px] rounded-tr-2xl" 
                   style={{ 
-                    borderColor: '#10b981',
-                    filter: 'drop-shadow(0 0 8px #10b981) drop-shadow(0 0 12px #10b981)'
+                    borderColor: 'rgb(var(--success))'
                   }} 
                 />
               </div>
               <div className="absolute bottom-0 left-0 w-12 h-12 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="absolute bottom-0 left-0 w-full h-full border-l-[3px] border-b-[3px] rounded-bl-2xl" 
                   style={{ 
-                    borderColor: '#10b981',
-                    filter: 'drop-shadow(0 0 8px #10b981) drop-shadow(0 0 12px #10b981)'
+                    borderColor: 'rgb(var(--success))'
                   }} 
                 />
               </div>
               <div className="absolute bottom-0 right-0 w-12 h-12 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="absolute bottom-0 right-0 w-full h-full border-r-[3px] border-b-[3px] rounded-br-2xl" 
                   style={{ 
-                    borderColor: '#10b981',
-                    filter: 'drop-shadow(0 0 8px #10b981) drop-shadow(0 0 12px #10b981)'
+                    borderColor: 'rgb(var(--success))'
                   }} 
                 />
               </div>
               
               <div className="flex items-center gap-3 mb-2 relative z-10">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-sm font-semibold text-white">Currently Available</span>
+                <span className="text-sm font-semibold text-ink">Currently Available</span>
               </div>
-              <p className="text-xs text-slate-400 leading-relaxed relative z-10">
+              <p className="text-xs text-muted leading-relaxed relative z-10">
                 Open to freelance projects, full-time roles, and exciting collaborations.
               </p>
             </div>
@@ -354,19 +350,16 @@ export default function Contact() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.4 }}
           >
-            <div className="glass-card rounded-[2rem] p-6 sm:p-10 relative overflow-hidden bg-[#0a0a0f]/95 backdrop-blur-xl border-[3px] group"
-              style={{
-                borderColor: '#00d4ff',
-                boxShadow: '0 0 30px rgba(0, 212, 255, 0.4), 0 0 60px rgba(124, 58, 237, 0.3), inset 0 0 20px rgba(0, 212, 255, 0.1)'
-              }}>
-              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[#00d4ff]/10 to-[#7c3aed]/10 blur-3xl rounded-full" />
+            <div className="glass-card rounded-[2rem] p-6 sm:p-10 relative overflow-hidden group"
+              style={{ boxShadow: '0 30px 60px -40px rgb(var(--accent)/0.4)' }}>
+              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-accent/10 to-accent-strong/10 blur-3xl rounded-full" />
               
               {/* Animated scanning line - Always visible */}
               <motion.div
                 className="absolute inset-x-0 h-[2px] opacity-30 z-[5]"
                 style={{
-                  background: 'linear-gradient(90deg, transparent, #00d4ff, #7c3aed, transparent)',
-                  boxShadow: '0 0 10px #00d4ff, 0 0 20px #7c3aed'
+                  background: 'linear-gradient(90deg, transparent, rgb(var(--accent)), transparent)',
+                  boxShadow: '0 0 10px rgb(var(--accent)/0.5)'
                 }}
                 animate={{
                   top: ['-5%', '105%']
@@ -388,8 +381,8 @@ export default function Contact() {
                   <div className="w-20 h-20 bg-emerald-500/10 rounded-full flex items-center justify-center mb-6">
                     <HiCheckCircle className="w-12 h-12 text-emerald-400" />
                   </div>
-                  <h3 className="text-2xl font-bold font-display text-white mb-3">Message Sent!</h3>
-                  <p className="text-slate-400 max-w-sm mb-8">
+                  <h3 className="text-2xl font-bold font-display text-ink mb-3">Message Sent!</h3>
+                  <p className="text-muted max-w-sm mb-8">
                     Thank you for reaching out. I'll get back to you as soon as possible.
                   </p>
                   <button onClick={() => setSubmitted(false)} className="btn-outline py-2.5 px-6 text-sm">
@@ -400,30 +393,30 @@ export default function Contact() {
                 <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label htmlFor="name" className="text-xs font-semibold text-slate-400 uppercase tracking-wider pl-1">Your Name</label>
+                      <label htmlFor="name" className="text-xs font-semibold text-muted uppercase tracking-wider pl-1">Your Name</label>
                       <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required placeholder="John Doe"
-                        className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-3.5 text-white placeholder:text-slate-600 focus:outline-none focus:border-[#00d4ff]/50 focus:bg-white/[0.05] transition-all" />
+                        className="w-full bg-ink/[0.03] border border-line rounded-xl px-4 py-3.5 text-ink placeholder:text-faint focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 focus:bg-ink/[0.05] transition-all" />
                     </div>
                     <div className="space-y-2">
-                      <label htmlFor="email" className="text-xs font-semibold text-slate-400 uppercase tracking-wider pl-1">Email Address</label>
+                      <label htmlFor="email" className="text-xs font-semibold text-muted uppercase tracking-wider pl-1">Email Address</label>
                       <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required placeholder="john@example.com"
-                        className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-3.5 text-white placeholder:text-slate-600 focus:outline-none focus:border-[#00d4ff]/50 focus:bg-white/[0.05] transition-all" />
+                        className="w-full bg-ink/[0.03] border border-line rounded-xl px-4 py-3.5 text-ink placeholder:text-faint focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 focus:bg-ink/[0.05] transition-all" />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <label htmlFor="subject" className="text-xs font-semibold text-slate-400 uppercase tracking-wider pl-1">Subject</label>
+                    <label htmlFor="subject" className="text-xs font-semibold text-muted uppercase tracking-wider pl-1">Subject</label>
                     <input type="text" id="subject" name="subject" value={formData.subject} onChange={handleChange} required placeholder="Project Inquiry"
-                      className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-3.5 text-white placeholder:text-slate-600 focus:outline-none focus:border-[#00d4ff]/50 focus:bg-white/[0.05] transition-all" />
+                      className="w-full bg-ink/[0.03] border border-line rounded-xl px-4 py-3.5 text-ink placeholder:text-faint focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 focus:bg-ink/[0.05] transition-all" />
                   </div>
                   <div className="space-y-2">
-                    <label htmlFor="message" className="text-xs font-semibold text-slate-400 uppercase tracking-wider pl-1">Message</label>
+                    <label htmlFor="message" className="text-xs font-semibold text-muted uppercase tracking-wider pl-1">Message</label>
                     <textarea id="message" name="message" value={formData.message} onChange={handleChange} required rows={5} placeholder="Tell me about your project..."
-                      className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-3.5 text-white placeholder:text-slate-600 focus:outline-none focus:border-[#00d4ff]/50 focus:bg-white/[0.05] transition-all resize-none" />
+                      className="w-full bg-ink/[0.03] border border-line rounded-xl px-4 py-3.5 text-ink placeholder:text-faint focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 focus:bg-ink/[0.05] transition-all resize-none" />
                   </div>
                   <button type="submit" disabled={loading}
-                    className="w-full h-14 bg-gradient-to-r from-[#00d4ff] to-[#7c3aed] rounded-xl text-white font-semibold flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(0,212,255,0.3)] disabled:opacity-70 disabled:cursor-not-allowed transition-all">
+                    className="w-full h-14 bg-accent-strong hover:bg-accent rounded-xl text-white font-semibold flex items-center justify-center gap-2 shadow-[0_10px_28px_-12px_rgb(var(--accent)/0.75)] disabled:opacity-70 disabled:cursor-not-allowed transition-all">
                     {loading ? (
-                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      <div className="w-5 h-5 border-2 border-white/40 border-t-white rounded-full animate-spin" />
                     ) : (
                       <>
                         <span>Send Message</span>
